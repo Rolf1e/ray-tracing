@@ -99,5 +99,36 @@ Brouillons :
 ## IV - Experimental Result for High Quality Images
 
 Le tableau 1 montre les caractéristiques de répartition de la charge pour chaque scène.
-Chaque scène a une résolution de 512x512 avec un (subray) d'anti aliasing.
-La scène est divisé en 256 régions de taille 32x32
+Chaque scène a une résolution de 512x512 avec un "subray" d'anti aliasing.
+La scène est divisée en 256 régions de taille 32x32
+
+La méthode GDC est systématiquement la plus performante.
+Elle donne une accélération quasiment linéaire pour les trois scènes
+
+LDC fonctionne également bien, il est légèrement plus rapide que GDC pour moins de 64 processeurs 
+et il est très comparable à GDC.
+LDC cependant se détériore pour un large nombre de processeurs
+
+(pas sur) : La scène de la balle est la moins 'bonne', elle a la plus grande variation de temps 
+de calcul pour les pixels
+
+
+## V Experimental Results Quality Images
+
+Après les tests sur les trois scènes on remarque que LDC et GDC donnent des bonnes performances.
+Les images utilisées étaient de dimension 512x512 avec un anti aliasing de 16.
+
+Cette grande quantité de calcul à tendance a masqué le gros coût associé au load balancing (pas sur du tout)
+
+Il n'est pas toujours nécessaire de générer des images avec autant de qualité.
+Si on réalise une simulation avec un faible anti aliasing, alors on aura moins de qualité d'image mais aussi 
+beaucoup moins de calcul à faire, cette qualité peut convenir pour beaucoup d'usage / application.
+
+Pour tester l'efficacité de GDC et LDC avec un faible anti aliasing, une expérimentation a été faite sur la 
+scène "Tree" avec un anti aliasing de 1 et une image de dimension 256x256.
+
+Les figures 7 et 8 montrent les résultats pour GDC et LDC pour cette expérimentation.
+
+Contrairement au précédente expérimentation on remarque que LDC est plus efficace que GDC.
+On a des performances similaires entre 1 et 128 processeurs puis il y a une détérioration notable sur
+les performances de GDC avec 256 à 512 noeuds.
