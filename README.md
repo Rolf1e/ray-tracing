@@ -43,31 +43,34 @@ Deux approches se distinguent:
  - Object space 
  - Image space 
  
-#### Object space On divise l'espace en volummes reguliers ou non. Les volummes
- sont ainsi alloues au processeur de maniere a ce que les volummes voisins soit
- proches dans le cpu. Il faut en effet communiquer les informations d'un rayon
- qui passent d'un volumme a l'autre. Il y a conservation de quel processeur
- s'occuper de quel volumme. 
+#### Object space On divise l'espace en volummes reguliers ou non. 
+
+Les volummes sont ainsi alloues au processeur de maniere a ce que les volummes
+voisins soit proches dans le cpu. Il faut en effet communiquer les informations
+d'un rayon qui passent d'un volumme a l'autre. Il y a conservation de quel
+processeur s'occuper de quel volumme. 
 
 Le principal probleme de cette approche est le decoupage des volummes afin de
 balancer la repartition. 
 
-#### Image space L'image 2D est divisee en "region". Chaque processeur se voit
-asigner un certain nombre de regions. Pendant le calcul, on peut effectuer un
-swap dans les processeurs, afin de balancer la repartition, si un calcul se
-voit etre trop long.
+#### Image space L'image 2D est divisee en "region".
+
+Chaque processeur se voit asigner un certain nombre de regions. Pendant le
+calcul, on peut effectuer un swap dans les processeurs, afin de balancer la
+repartition, si un calcul se voit etre trop long.
 
 
-### Description de la machine Courte description du nombre de processeur et de
+Description de la machine Courte description du nombre de processeur et de
 la machine utilisee pour les experiences.
 512 Noeuds avec un maillage de 16 * 32, chaque noeud est un Intel i860.
 
 
-## II - Local Distributed Control Division de l'ecran en zone de pixels 2x2. On
-Taurus Topology
-Divise les regions sur les differentes processeurs de maniere intervalle. Cette
-methode de division permet de maniere rare (pas sur de la trad) des
-repartitions egales, mais semble offrir de meilleures performances.
+## II - Local Distributed Control Division de l'ecran en zone de pixels 2x2.
+
+On Taurus Topology
+Divise les regions sur les differentes processeurs de maniere entralassee.
+Cette methode de division permet de global maniere des repartitions egales,
+mais semble offrir de meilleures performances.
 
 Pendant les calculs, les IDLE noeuds recuperent du travail des noeuds pleine
 action. On veut garder le processeur occuper le plus souvent possible.
@@ -79,6 +82,7 @@ un noeud travaillant, il lui demande la moitie de son travail restant.
 Quand tous les noeuds vont terminé leur travail, le Ray tracing est terminé. 
  
 ## III - Global Distributed Control
+<<<<<<< Updated upstream
  Ring Topology
  Les N processeurs sont organises en topologie en anneau, il y a toujours une division de
  l'ecran en region de 2x2 pixels.
@@ -132,3 +136,18 @@ Les figures 7 et 8 montrent les résultats pour GDC et LDC pour cette expérimen
 Contrairement au précédente expérimentation on remarque que LDC est plus efficace que GDC.
 On a des performances similaires entre 1 et 128 processeurs puis il y a une détérioration notable sur
 les performances de GDC avec 256 à 512 noeuds.
+
+Ring Topology
+Les N processeurs sont organises en topologie bagues, toujours division de
+l'ecran en region de 2x2 pixels. Quand un processeur devient IDLE, il parcourt
+la bague et demande a chaque processeur s'il a du travail pour lui. Le noeud
+demandant, retient le noeud qu'il lui a donne le travail. S'il redevient IDLE,
+il recommencera par lui, le noeud donnant, se souvient du noeud demandant, et
+agit de meme. Si dans sa recherche un noeud revient sur lui meme, il s'arrete,
+a priori, y a plus rien a faire.
+
+## VI - Resultats experimentaux pour des images de haute qualite
+
+GDC semble etre le meilleur des deux, avec une progression presque lineaire
+pour les trois scenes. 
+
