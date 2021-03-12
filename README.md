@@ -1,3 +1,6 @@
+Tigran SLAMA 
+
+
 # Load balacing in Ray Tracing computations
 
 
