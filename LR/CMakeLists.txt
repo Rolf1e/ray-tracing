@@ -2,37 +2,45 @@ cmake_minimum_required (VERSION 2.6)
 project (lr)
 set(SRCS
     ./Src/lr.cpp
-    ./Src/Objet.cpp
-    ./Src/Sphere.cpp
-    ./Src/Materiau.cpp
-    ./Src/Couleur.cpp
+
+
     ./Src/Plan.cpp
     ./Src/Scene.cpp
-    ./Src/Point.cpp
-    ./Src/Vecteur.cpp
-    ./Src/Intensite.cpp
     ./Src/Source.cpp
     ./Src/Image.cpp
     ./Src/Camera.cpp
-    ./Src/Rayon.cpp
-    ./Src/Intersection.cpp
+
+    ./Src/materiel/Couleur.cpp
+    ./Src/materiel/Materiau.cpp
+
+    ./Src/objets/Objet.cpp
+    ./Src/objets/Sphere.cpp
+    ./Src/objets/Rayon.cpp
+
+    ./Src/infra/Vecteur.cpp
+    ./Src/infra/Point.cpp
+    ./Src/infra/Intensite.cpp
+    ./Src/infra/Intersection.cpp
     )
     
 set(HEADERS
-    ./Src/Objet.hpp
-    ./Src/Sphere.hpp
-    ./Src/Materiau.hpp
-    ./Src/Couleur.hpp
     ./Src/Plan.hpp
     ./Src/Scene.hpp
-    ./Src/Point.hpp
-    ./Src/Vecteur.hpp
-    ./Src/Intensite.hpp
     ./Src/Source.hpp
     ./Src/Image.hpp
     ./Src/Camera.hpp
-    ./Src/Rayon.hpp
-    ./Src/Intersection.hpp
+    
+    ./Src/materiel/Couleur.hpp
+    ./Src/materiel/Materiau.hpp
+
+    ./Src/objets/Objet.hpp
+    ./Src/objets/Sphere.hpp
+    ./Src/objets/Rayon.hpp
+
+    ./Src/infra/Vecteur.hpp
+    ./Src/infra/Point.hpp
+    ./Src/infra/Intensite.hpp
+    ./Src/infra/Intersection.hpp
     )
 
 add_definitions(-std=c++11)

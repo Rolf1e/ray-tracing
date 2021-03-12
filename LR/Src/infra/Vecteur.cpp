@@ -17,12 +17,12 @@ Vecteur::Vecteur(const Point& PA, const Point& PB){
   dz = PB.Z - PA.Z;
 }
 
-/*Vecteur::Vecteur(const Vecteur& v){
-  dx = v.dx; dy = v.dy; dz = v.dz;
-
-  }*/
 
 Vecteur:: ~Vecteur(){}
+
+void Vecteur::set(const double &x, const double &y, const double &z){
+  dx = x; dy = y; dz = z;
+}
 
 void Vecteur::normaliser(){
   float norme = (float)sqrt(dx*dx+dy*dy+dz*dz);
@@ -44,6 +44,12 @@ Vecteur Vecteur::operator+(const Vecteur& v){
 
 Vecteur Vecteur::operator-(const Vecteur& v){
   return Vecteur(dx-v.dx, dy-v.dy, dz-v.dz);
+}
+
+Vecteur Vecteur::cross(const Vecteur &u, const Vecteur& v){
+  return Vecteur((u.dy*v.dz)-(u.dz*v.dy),
+		 (u.dz*v.dx)-(u.dx*v.dz),
+		 (u.dx*v.dy)-(u.dy*v.dx));
 }
 
 ostream& operator<<(ostream & sortie, const Vecteur & v){

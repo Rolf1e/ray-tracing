@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "Scene.hpp"
-#include "Sphere.hpp"
+#include "objets/Sphere.hpp"
 #include "Plan.hpp"
 
 Scene::Scene(){

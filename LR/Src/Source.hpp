@@ -4,8 +4,8 @@
 #include <iostream>
 using namespace std;
 
-#include "Point.hpp"
-#include "Intensite.hpp"
+#include "infra/Point.hpp"
+#include "infra/Intensite.hpp"
 
 /**
  * \class Source

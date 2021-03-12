@@ -4,11 +4,11 @@ using namespace std;
 //#include "Sphere.hpp"
 //#include "Plan.hpp"
 #include "Scene.hpp"
-#include "Vecteur.hpp"
+#include "infra/Vecteur.hpp"
 #include "Image.hpp"
 #include "Camera.hpp"
-#include "Rayon.hpp"
-#include "Intersection.hpp"
+#include "objets/Rayon.hpp"
+#include "infra/Intersection.hpp"
 
 // profondeur de la récursion pour le lancer de rayons
 #define PROF 1

@@ -4,8 +4,8 @@
 #include <iostream>
 using namespace std;
 
-#include "Point.hpp"
-#include "Vecteur.hpp"
+#include "infra/Point.hpp"
+#include "infra/Vecteur.hpp"
 #include "Scene.hpp"
 #include "Image.hpp"
 

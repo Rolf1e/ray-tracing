@@ -3,9 +3,9 @@
 
 class Intersection;
 
-#include "Objet.hpp"
+#include "../objets/Objet.hpp"
 #include "Point.hpp"
-#include "Scene.hpp"
+#include "../Scene.hpp"
 
 class Objet;
 class Scene;

@@ -4,11 +4,11 @@
 #include <iostream>
 using namespace std;
 
-#include "Materiau.hpp"
+#include "../materiel/Materiau.hpp"
 #include "Rayon.hpp"
-#include "Intersection.hpp"
-#include "Intensite.hpp"
-#include "Scene.hpp"
+#include "../infra/Intersection.hpp"
+#include "../infra/Intensite.hpp"
+#include "../Scene.hpp"
 
 /**
  * \class Objet 

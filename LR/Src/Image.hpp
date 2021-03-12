@@ -2,7 +2,7 @@
 #define _IMAGE_HPP
 #include <string>
 using namespace std;
-#include "Couleur.hpp"
+#include "materiel/Couleur.hpp"
 
 /**
  * \class Image

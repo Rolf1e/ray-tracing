@@ -1,8 +1,8 @@
 #ifndef _RAYON_HPP
 #define _RAYON_HPP
 
-#include "Point.hpp"
-#include "Vecteur.hpp"
+#include "../infra/Point.hpp"
+#include "../infra/Vecteur.hpp"
 
 #include <iostream>
 using namespace std;

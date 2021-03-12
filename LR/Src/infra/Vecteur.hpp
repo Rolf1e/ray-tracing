@@ -47,12 +47,17 @@ public:
    */
   Vecteur(const Point& PA, const Point& PB);
 
-
-
   /**
    * Destructeur par défaut.
    */
   ~Vecteur();
+
+  /** Modifie la valeur des coordonnées du vecteur.
+   * @param x coordonnée en <CODE>X</CODE> du vecteur &agrave; modifier
+   * @param y coordonnée en <CODE>Y</CODE> du vecteur &agrave; modifier
+   * @param z coordonnée en <CODE>Z</CODE> du vecteur &agrave; modifier
+   */
+  void set(const double &x, const double &y, const double &z);
 
   /**
    ** Normalise le vecteur courant.
@@ -86,6 +91,14 @@ public:
    * @return un vecteur représentant la différence du vecteur courant et de v
    */
   Vecteur operator-(const Vecteur& v);
+
+  /**
+   * Produit vectoriel entre deux vecteurs.
+   * @param u la première opérande du produit vectoriel
+   * @param v la seconde  opérande du produit vectoriel  
+   * @return le produit vectoriel entre u et v
+   */
+  static Vecteur cross(const Vecteur &u, const Vecteur& v);
 
   /**
    * Affichage de la description d'un vecteur sur le flot de sortie, 

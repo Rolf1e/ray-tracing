@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-#include "Point.hpp"
+#include "../infra/Point.hpp"
 #include "Objet.hpp"
 
 /**

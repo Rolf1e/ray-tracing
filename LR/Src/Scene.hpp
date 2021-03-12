@@ -6,11 +6,11 @@
 #include <string>
 using namespace std;
 
-#include "Objet.hpp"
-#include "Couleur.hpp"
+#include "objets/Objet.hpp"
+#include "materiel/Couleur.hpp"
 #include "Source.hpp"
-#include "Rayon.hpp"
-#include "Intersection.hpp"
+#include "objets/Rayon.hpp"
+#include "infra/Intersection.hpp"
 
 class Objet;
 

@@ -1,5 +1,5 @@
 #include "Camera.hpp"
-#include "Rayon.hpp"
+#include "objets/Rayon.hpp"
 
 Camera::Camera() {
   position = Point(0.0, 0.0, 2.0);

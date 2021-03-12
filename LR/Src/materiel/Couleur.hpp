@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-#include "Intensite.hpp"
+#include "../infra/Intensite.hpp"
 
 /**
  * \class Couleur

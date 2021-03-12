@@ -1,14 +1,15 @@
-#ifndef _PLAN_HPP
-#define _PLAN_HPP
+#ifndef _TRIANGLE_HPP
+#define _TRIANGLE_HPP
 
 #include <iostream>
 using namespace std;
 
-#include "objets/Objet.hpp"
+#include "Objet.hpp"
+#include "Vecteur.hpp"
 
 /**
- * \class Plan
- * Classe représentant un plan infini d'équation a.x + b.y +c.z + d =0.
+ * \class Triangle
+ * Classe représentant un triangle représenté par ses 3 sommets
  * La classe implante les méthodes permettant sont utilisation dans le cadre
  * d'un algorithme de lancer de rayons.
  *
@@ -22,31 +23,29 @@ using namespace std;
  * 
  */
 
-class Plan : public Objet {
+class Triangle : public Objet {
 private:
-  float a, b, c, d;/**< Coefficients de l'équation du plan */
+  Point s[3];/**< Sommets du triangle, données dans l'ordre direct */
+  Vecteur n; /**< Normale à la surface du triangle */
 public:
   /**
-   * Construit un plan horizontal d'équation y=0
+   * Construit un triangle standard
    */
-  Plan();
+  Triangle();
   /**
-   * Construit un plan d'équation a.x + b.y +c.z + d =0, de matériau m
-   * @param a coefficient du plan selon l'axe Ox
-   * @param b coefficient du plan selon l'axe Oy
-   * @param c coefficient du plan selon l'axe Oz
-   * @param d décalage du plan par rapport à l'origine
-   * @param m matériau du plan.
+   * Construit un à partir de 3 sommets, de matériau m
+   * @param p tableau des 3 sommets du triangle
+   * @param m matériau du triangle.
    */
-  Plan(float a, float b, float c, float d, Materiau m);
+  Triangle(const Point p[3], Materiau m);
 
   /**
-   * détruit le plan
+   * détruit le triangle
    */
-  ~Plan();
+  ~Triangle();
 
   /**
-   * Calcule l'intersection entre un rayon et le plan si elle existe. 
+   * Calcule l'intersection entre un rayon et le triangle si elle existe. 
    * @param r le rayon pour lequel il faut calculer l'intersection
    * @param inter l'intersection trouvée si elle existe
    * @return true si une intersection est trouvée, auquel cas le paramètre
@@ -55,7 +54,7 @@ public:
   bool intersecte(const Rayon& r, Intersection& inter);
 
   /**
-   * Détermine si le plan coupe le rayon entre son origine
+   * Détermine si le triangle coupe le rayon entre son origine
    * et l'extrémité de son vecteur directeur.
    * @param r le rayon pour lequel le test doit être effectué
    * @return true si le plan coupe le rayon entre son origine
@@ -64,23 +63,23 @@ public:
   bool coupe(const Rayon& r);
 
     /**
-   * Calcule la normale à la surface du plan au point considéré.
+   * Calcule la normale à la surface du triangle au point considéré.
    * Le vecteur retourné doit être normalisé.
    * @param p le point auquel la normale doit être calculée
-   * @return la normale à la surface du plan au point considéré. Le vecteur
+   * @return la normale à la surface du triangle au point considéré. Le vecteur
    * retourné est normalisé.
    */
   virtual Vecteur getNormale(const Point &p);
 
 
   /**
-   * Affichage de la description du plan sur le flot de sortie, dans un format
-   * lisible par un utilisateur humain.
+   * Affichage de la description du triangle sur le flot de sortie,
+   *  dans un format lisible par un utilisateur humain.
    * @param sortie le flot de sortie
-   * @param p le plan à afficher
+   * @param p le triangle à afficher
    * @return le flot modifié
    */
-  friend ostream& operator<<(ostream & sortie, Plan & p);
+  friend ostream& operator<<(ostream & sortie, Triangle & t);
 
 
 
