@@ -28,14 +28,15 @@ bool Triangle::intersecte(const Rayon& r, Intersection& inter) {
   auto origin = r.origine;
   auto direction = r.direction;
 
-  //       d − n⋅ P
+  //       d − n⋅P
   // t = -----------
-  //         n⋅d
+  //         n⋅D
 
   // Downside
   auto down = this->n * direction;
+  // ray is parallel
   if (down == 0) {
-    return false;  // ray is parallel
+    return false;
   }
 
   // Upside
@@ -47,11 +48,10 @@ bool Triangle::intersecte(const Rayon& r, Intersection& inter) {
   // d - n * P
   auto up = d - this->n * p;
 
-  // t
-  auto t = up / down;
-
-  if (t < 0) {
-    return false;  // triangle behind
+  // triangle behind
+  double t = up / down;
+  if (t <= 0) {
+    return false;
   }
 
   auto b = this->s[1];
@@ -59,22 +59,21 @@ bool Triangle::intersecte(const Rayon& r, Intersection& inter) {
   auto q = Point(origin.X + t * direction.dx, origin.Y + t * direction.dy,
                  origin.Z + t * direction.dz);
 
-  Vecteur ab = Vecteur(a, b);
-  Vecteur qa = Vecteur(q, a);
-
+  // Triangle inside ?
+  auto ab = Vecteur(a, b);
+  auto qa = Vecteur(q, a);
   if ((Vecteur::cross(ab, qa) * this->n) >= 0) {
     return false;
   }
 
-  Vecteur bc = Vecteur(b, c);
-  Vecteur qb = Vecteur(q, b);
+  auto bc = Vecteur(b, c);
+  auto qb = Vecteur(q, b);
   if ((Vecteur::cross(bc, qb) * this->n) >= 0) {
     return false;
   }
 
-  Vecteur ca = Vecteur(c, a);
-  Vecteur qc = Vecteur(q, c);
-
+  auto ca = Vecteur(c, a);
+  auto qc = Vecteur(q, c);
   if ((Vecteur::cross(ca, qc) * this->n) >= 0) {
     return false;
   }
