@@ -16,6 +16,7 @@ set(SRCS
     ./Src/objets/Objet.cpp
     ./Src/objets/Sphere.cpp
     ./Src/objets/Rayon.cpp
+    ./Src/objets/Triangle.cpp
 
     ./Src/infra/Vecteur.cpp
     ./Src/infra/Point.cpp
@@ -36,6 +37,7 @@ set(HEADERS
     ./Src/objets/Objet.hpp
     ./Src/objets/Sphere.hpp
     ./Src/objets/Rayon.hpp
+    ./Src/objets/Triangle.hpp
 
     ./Src/infra/Vecteur.hpp
     ./Src/infra/Point.hpp

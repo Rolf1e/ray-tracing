@@ -7,6 +7,8 @@ using namespace std;
 #include "../infra/Point.hpp"
 #include "Objet.hpp"
 
+#define SP_EPSILON 0.0001
+
 /**
  * \class Sphere
  * Classe permettant de représenter une sphère.

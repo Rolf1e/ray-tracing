@@ -1,128 +1,126 @@
-#include <iostream>
 #include <fstream>
+#include <iostream>
+
+#include "Plan.hpp"
 #include "Scene.hpp"
 #include "objets/Sphere.hpp"
-#include "Plan.hpp"
+#include "objets/Triangle.hpp"
 
-Scene::Scene(){
-  ambiante.intensite.set(0.2, 0.2, 0.2);
-}
+Scene::Scene() { ambiante.intensite.set(0.2, 0.2, 0.2); }
 
-Scene::~Scene(){
+Scene::~Scene() {
   // suppression de tous les objets
-  for(int i=0; i<objets.size(); i++)
-    delete objets[i];
+  for (int i = 0; i < objets.size(); i++) delete objets[i];
   objets.clear();
-  //suppression de toutes les sources
-  for(int i=0; i<sources.size(); i++)
-    delete sources[i];
+  // suppression de toutes les sources
+  for (int i = 0; i < sources.size(); i++) delete sources[i];
   sources.clear();
 }
 
-bool Scene::charger(string filename){
-
+bool Scene::charger(string filename) {
   Materiau curMat;
 
   ifstream in;
   in.open(filename.c_str(), ios::in);
-  if(!in.is_open()) return false;
+  if (!in.is_open()) return false;
 
   string s;
   in >> s;
 
-  while(!in.eof()){
-
-    if(s[0]=='#'){// traiter un commentaire
+  while (!in.eof()) {
+    if (s[0] == '#') {  // traiter un commentaire
       getline(in, s);
     }
-    if(s=="sphere"){// charger une sphere
+
+    if (s == "sphere") {  // charger une sphere
       float x, y, z, r;
       in >> x >> y >> z >> r;
       ajouter(new Sphere(x, y, z, r, curMat));
     }
 
-    if(s=="plan"){// charger un plan
+    if (s == "tri") {
+      float x1, y1, z1, x2, y2, z2, x3, y3, z3;
+      in >> x1 >> y1 >> z1 >> x2 >> y2 >> z2 >> x3 >> y3 >> z3;
+      const Point points[3] = {Point(x1, y1, z1), Point(x2, y2, z2),
+                               Point(x3, y3, z3)};
+      ajouter(new Triangle(points, curMat));
+    }
+
+    if (s == "plan") {  // charger un plan
       float a, b, c, d;
       in >> a >> b >> c >> d;
       ajouter(new Plan(a, b, c, d, curMat));
     }
 
-    if(s=="materiau"){// charger un matériau
+    if (s == "materiau") {  // charger un matériau
       float r, v, b, ka, kd, ks, s;
       in >> r >> v >> b >> ka >> kd >> ks >> s;
       curMat.set(Couleur(r, v, b), ka, kd, ks, s);
     }
 
-    if(s=="source"){// charger une source
+    if (s == "source") {  // charger une source
       float x, y, z, r, v, b;
       in >> x >> y >> z >> r >> v >> b;
-      sources.push_back(new Source(Point(x,y,z), Intensite(r, v, b)));
+      sources.push_back(new Source(Point(x, y, z), Intensite(r, v, b)));
     }
 
-    if(s=="fond"){// charger la couleur de fond
+    if (s == "fond") {  // charger la couleur de fond
       float r, v, b;
       in >> r >> v >> b;
       fond.set(r, v, b);
     }
 
-    if(s=="ambiant"){// charger la source ambiante
+    if (s == "ambiant") {  // charger la source ambiante
       float r, v, b;
       in >> r >> v >> b;
       ambiante.intensite.set(r, v, b);
     }
 
     in >> s;
-  }// while
+  }  // while
 
   in.close();
   return true;
 }
 
-void Scene::ajouter(Objet *o){
-  objets.push_back(o);
-}
+void Scene::ajouter(Objet* o) { objets.push_back(o); }
 
 bool Scene::intersecte(const Rayon& r, Intersection& inter) const {
-  float tmax = 1.0e50;// init d'une valeur maximal du paramètre t
+  float tmax = 1.0e50;  // init d'une valeur maximal du paramètre t
   Intersection interCour;
-  bool interTrouvee=false;
+  bool interTrouvee = false;
 
-  for(int i=0; i<objets.size(); i++){
-    if(objets[i]->intersecte(r, interCour)){
+  for (int i = 0; i < objets.size(); i++) {
+    if (objets[i]->intersecte(r, interCour)) {
       // l'intersection est-elle plus proche que l'ntersection courante ?
-      if(interCour.getDistance() < tmax){
-       	tmax = interCour.getDistance();
-      	inter = interCour;
+      if (interCour.getDistance() < tmax) {
+        tmax = interCour.getDistance();
+        inter = interCour;
       }
       interTrouvee = true;
     }
   }
-    
+
   return interTrouvee;
 }
 
-
-bool Scene::coupe(const Rayon &r) const{
-  for(int i=0; i<objets.size(); i++)
+bool Scene::coupe(const Rayon& r) const {
+  for (int i = 0; i < objets.size(); i++)
     // on s'arrête au premier objet qui coupe
-    if(objets[i]->coupe(r)) return true;
+    if (objets[i]->coupe(r)) return true;
   return false;
 }
 
-
-ostream& operator<<(ostream & sortie, Scene & s){
+ostream& operator<<(ostream& sortie, Scene& s) {
   sortie << "contenu de la scène : " << endl;
-  for(int i=0; i<s.objets.size(); i++){
+  for (int i = 0; i < s.objets.size(); i++) {
     s.objets[i]->affiche(sortie);
     sortie << endl;
   }
-  for(int i=0; i<s.sources.size(); i++)
-    sortie << *s.sources[i] << endl;
+  for (int i = 0; i < s.sources.size(); i++) sortie << *s.sources[i] << endl;
 
   sortie << "la source ambiante vaut " << s.ambiante << endl;
   sortie << "La couleur de fond est " << s.fond << endl;
   return sortie;
 }
-
-
 

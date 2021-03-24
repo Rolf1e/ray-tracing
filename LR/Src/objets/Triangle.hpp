@@ -5,7 +5,7 @@
 using namespace std;
 
 #include "Objet.hpp"
-#include "Vecteur.hpp"
+#include "../infra/Vecteur.hpp"
 
 /**
  * \class Triangle
