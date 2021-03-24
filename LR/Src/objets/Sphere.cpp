@@ -37,6 +37,9 @@ bool Sphere::intersecte(const Rayon& r, Intersection& inter) {
   t2 = (-b + sqrt(discriminant)) / (2 * a);
 
   t = min(t1, t2);
+  if (t < 0 ) {
+    return false;
+  }
 
   auto x = r.origine.X + t * r.direction.dx;
   auto y = r.origine.Y + t * r.direction.dy;
