@@ -1,3 +1,3 @@
-Ray-tracing course at ULCO 
-[Current result](./result.pdf)
+Ray-tracing course at ULCO  By Tigran SLAMA
+![Current result](./result.pdf)
 
