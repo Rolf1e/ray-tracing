@@ -6,6 +6,7 @@ using namespace std;
 
 #include "Objet.hpp"
 #include "../infra/Vecteur.hpp"
+#define TRI_ESPILON  0.01
 
 /**
  * \class Triangle

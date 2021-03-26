@@ -27,7 +27,7 @@ bool Sphere::intersecte(const Rayon& r, Intersection& inter) {
 
   auto discriminant = b * b - 4 * a * c;
 
-  if (discriminant < 0) {
+  if (discriminant < SP_EPSILON) {
     return false;
   }
 

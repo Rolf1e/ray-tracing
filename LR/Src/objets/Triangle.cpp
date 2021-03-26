@@ -50,7 +50,7 @@ bool Triangle::intersecte(const Rayon& r, Intersection& inter) {
 
   // triangle behind
   double t = up / down;
-  if (t <= 0) {
+  if (t <= TRI_ESPILON) {
     return false;
   }
 
@@ -83,7 +83,61 @@ bool Triangle::intersecte(const Rayon& r, Intersection& inter) {
   return true;
 }
 
-bool Triangle::coupe(const Rayon& r) { return false; }
+bool Triangle::coupe(const Rayon& r) { 
+  auto origin = r.origine;
+  auto direction = r.direction;
+
+  //       d − n⋅P
+  // t = -----------
+  //         n⋅D
+
+  // Downside
+  auto down = this->n * direction;
+  // ray is parallel
+  if (down == 0) {
+    return false;
+  }
+
+  // Upside
+  auto p = Vecteur(origin.X, origin.Y, origin.Z);
+
+  // d = n * A
+  auto a = this->s[0];
+  auto d = this->n * Vecteur(a.X, a.Y, a.Z);
+  // d - n * P
+  auto up = d - this->n * p;
+
+  // triangle behind
+  double t = up / down;
+  if (t <= TRI_ESPILON) {
+    return false;
+  }
+  auto b = this->s[1];
+  auto c = this->s[2];
+  auto q = Point(origin.X + t * direction.dx, origin.Y + t * direction.dy,
+                 origin.Z + t * direction.dz);
+
+  // Triangle inside ?
+  auto ab = Vecteur(a, b);
+  auto qa = Vecteur(q, a);
+  if ((Vecteur::cross(ab, qa) * this->n) >= 0) {
+    return false;
+  }
+
+  auto bc = Vecteur(b, c);
+  auto qb = Vecteur(q, b);
+  if ((Vecteur::cross(bc, qb) * this->n) >= 0) {
+    return false;
+  }
+
+  auto ca = Vecteur(c, a);
+  auto qc = Vecteur(q, c);
+  if ((Vecteur::cross(ca, qc) * this->n) >= 0) {
+    return false;
+  }
+
+  return true;
+}
 
 Vecteur Triangle::getNormale(const Point& p) { return n; }
 
