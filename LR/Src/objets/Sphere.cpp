@@ -49,7 +49,43 @@ bool Sphere::intersecte(const Rayon& r, Intersection& inter) {
   return true;
 }
 
-bool Sphere::coupe(const Rayon& r) { return false; }
+bool Sphere::coupe(const Rayon& r) {
+
+  auto origin = r.origine;
+  auto center = this->centre;
+  auto oc_x = origin.X - center.X;
+  auto oc_y = origin.Y - center.Y;
+  auto oc_z = origin.Z - center.Z;
+  auto rdir = r.direction;
+  auto v_rdir = Vecteur(rdir.dx, rdir.dy, rdir.dz);
+
+  auto a = v_rdir * v_rdir;
+  auto oc = Vecteur(oc_x, oc_y, oc_z);
+  auto b = 2 * (oc * r.direction);
+
+  auto c = oc * oc - this->rayon * this->rayon;
+
+  auto discriminant = b * b - 4 * a * c;
+
+  if (discriminant < SP_EPSILON) {
+    return false;
+  }
+
+  float t1, t2, t;
+
+  t1 = (-b - sqrt(discriminant)) / (2 * a);
+  t2 = (-b + sqrt(discriminant)) / (2 * a);
+
+  t = min(t1, t2);
+  if (t < 0 ) {
+    return false;
+  }
+
+  auto x = r.origine.X + t * r.direction.dx;
+  auto y = r.origine.Y + t * r.direction.dy;
+  auto z = r.origine.Z + t * r.direction.dz;
+  return true; 
+}
 
 ostream& operator<<(ostream& sortie, Sphere& s) {
   // affichage de l'équation de la sphère
